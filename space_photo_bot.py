@@ -19,11 +19,11 @@ class TelegramLogsHandler(logging.Handler):
 
 
 def save_chat_id(chat_id):
-    with open ('chat_ids.txt', 'a+') as f:
+    with open('chat_ids.txt', 'a+') as f:
         f.seek(0)
         saved_ids = f.read()
         if str(chat_id) not in saved_ids:
-            f.write(f'{chat_id}\n')
+            f.write(f"{chat_id}\n")
 
 
 def load_chat_ids():
@@ -54,7 +54,7 @@ def translate(text, yandex_translate_key):
         return text
 
 
-def get_nasa_apod_data(nasa_api_url, nasa_token,  error_chat_id, bot, logger):
+def get_nasa_apod_data(nasa_api_url, nasa_token, error_chat_id, bot, logger):
     try:
         params = {'api_key': nasa_token, 'count': 1}
         response = requests.get(nasa_api_url, params=params)
@@ -111,7 +111,8 @@ def main():
     NASA_TOKEN = os.environ['NASA_TOKEN']
     ERROR_CHAT_ID = os.environ['TELEGRAM_ERROR_CHAT_ID']
     YANDEX_TRANSLATE_KEY = os.environ['YANDEX_TRANSLATE_KEY']
-    SLEEP_TIME = 30  # 6 * 60 * 60
+    TIMER = os.environ['TIMER']
+    SLEEP_TIME = int(TIMER) * 60 * 60
 
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
