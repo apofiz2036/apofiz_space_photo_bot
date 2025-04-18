@@ -8,4 +8,6 @@ __pycache__
 .pyo
 .vscode
 Thumbs.db
-.DS_Store	
+.DS_Store
+chat_ids.txt
+*.log
