@@ -98,10 +98,9 @@ def download_and_send_photo(bot, nasa_api_url, nasa_token, error_chat_id, yandex
             try:
                 bot.send_photo(chat_id=chat_id, photo=photo_data)
                 bot.send_message(chat_id=chat_id, text=translated_text)
-            except telegram.error.Forbidden:
+            except:
                 continue
-            except Exception as e:
-                logger.error(f"Ошибка при отправке пользователю {chat_id}: {e}")
+
     except Exception as e:
         bot.send_message(chat_id=error_chat_id, text=f"Произошла ошибка: {e}")
         logger.error(f"Ошибка: {str(e)}")
