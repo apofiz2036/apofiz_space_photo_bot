@@ -95,8 +95,13 @@ def download_and_send_photo(bot, nasa_api_url, nasa_token, error_chat_id, yandex
         text = f'📅 {date}\n\n🔭 {title}\n\nℹ️ {explanation}'
         translated_text = translate(text, yandex_translate_key)
         for chat_id in chat_ids:
-            bot.send_photo(chat_id=chat_id, photo=photo_data)
-            bot.send_message(chat_id=chat_id, text=translated_text)
+            try:
+                bot.send_photo(chat_id=chat_id, photo=photo_data)
+                bot.send_message(chat_id=chat_id, text=translated_text)
+            except telegram.error.Forbidden:
+                continue
+            except Exception as e:
+                logger.error(f"Ошибка при отправке пользователю {chat_id}: {e}")
     except Exception as e:
         bot.send_message(chat_id=error_chat_id, text=f"Произошла ошибка: {e}")
         logger.error(f"Ошибка: {str(e)}")
